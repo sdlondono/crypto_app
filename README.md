@@ -1,4 +1,4 @@
-# 📱 CryptoApp – React Native Senior Technical Test
+# 📱 CryptoApp – React Native Million
 
 **CryptoApp** is a mobile application developed with **React Native, TypeScript, and Expo**
 It fetches real-time cryptocurrency data from the CoinLore API and allows users to:
@@ -45,8 +45,8 @@ https://github.com/user-attachments/assets/c0cf09b4-d63b-4047-97e4-e552651f926e
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/cryptoapp.git
-cd cryptoapp
+git clone https://github.com/your-username/crypto_app.git
+cd crypto_app
 ```
 
 ### 2. Install dependencies
