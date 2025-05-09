@@ -8,6 +8,8 @@ It fetches real-time cryptocurrency data from the CoinLore API and allows users 
 - Filter them by name or symbol
 - Access detailed information by tapping on any coin
 
+https://github.com/user-attachments/assets/c0cf09b4-d63b-4047-97e4-e552651f926e
+
 ---
 
 ## ✅ Test Requirements
