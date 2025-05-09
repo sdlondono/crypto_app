@@ -1,7 +1,11 @@
 import { ICrypto } from '@/models/Crypto'
 
-export const getCryptos = async (): Promise<ICrypto[]> => {
-  const res = await fetch('https://api.coinlore.net/api/tickers/')
+export const LIMIT = 20
+
+export const getCryptos = async (start: number): Promise<ICrypto[]> => {
+  const res = await fetch(
+    `https://api.coinlore.net/api/tickers/?start=${start}&limit=${LIMIT}`
+  )
   return (await res.json()).data as ICrypto[]
 }
 

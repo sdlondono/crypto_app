@@ -1,27 +1,43 @@
 import { ICrypto } from '@/models/Crypto'
-import { getCryptos } from '@/services/cryptoService'
-import { useEffect, useState } from 'react'
+import { getCryptos, LIMIT } from '@/services/cryptoService'
+import { useCallback, useEffect, useState } from 'react'
 
 export default function useCryptos() {
   const [data, setData] = useState<ICrypto[]>([])
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
+  const [start, setStart] = useState(0)
+  const [hasMore, setHasMore] = useState(true)
+
+  const fetchCryptos = useCallback(async () => {
+    if (!hasMore || loading) return
+
+    try {
+      setLoading(true)
+      const response = await getCryptos(start)
+
+      setData((prev) => {
+        const existingIds = new Set(prev.map((c) => c.id))
+        const uniqueNewCoins = response.filter((c) => !existingIds.has(c.id))
+        return [...prev, ...uniqueNewCoins]
+      })
+      console.log('here', start, LIMIT)
+      setStart((prev) => prev + LIMIT)
+
+      if (response.length < LIMIT) {
+        setHasMore(false)
+      }
+    } catch (error) {
+      console.error(error)
+      setError(true)
+    } finally {
+      setLoading(false)
+    }
+  }, [hasMore, loading, start])
 
   useEffect(() => {
-    const fetchCryptos = async () => {
-      try {
-        const response = await getCryptos()
-        setData(response)
-      } catch (err) {
-        console.error('Error fetching cryptos:', err)
-        setError(true)
-      } finally {
-        setLoading(false)
-      }
-    }
-
     fetchCryptos()
   }, [])
 
-  return { data, loading, error }
+  return { data, loading, error, fetchMore: fetchCryptos, hasMore }
 }
