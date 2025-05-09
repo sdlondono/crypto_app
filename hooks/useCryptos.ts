@@ -21,7 +21,6 @@ export default function useCryptos() {
         const uniqueNewCoins = response.filter((c) => !existingIds.has(c.id))
         return [...prev, ...uniqueNewCoins]
       })
-      console.log('here', start, LIMIT)
       setStart((prev) => prev + LIMIT)
 
       if (response.length < LIMIT) {

@@ -65,12 +65,20 @@ const HomeScreen = () => {
         renderItem={renderItem}
         onEndReached={debouncedQuery ? undefined : handleLoadMore}
         onEndReachedThreshold={0.5}
+        initialNumToRender={20}
+        maxToRenderPerBatch={20}
+        windowSize={5}
         keyExtractor={(item) => item.id.toString()}
         ListFooterComponent={
           !debouncedQuery && loading && hasMore ? (
             <ActivityIndicator size="small" style={{ margin: 16 }} />
           ) : null
         }
+        getItemLayout={(_, index) => ({
+          length: 100,
+          offset: 100 * index,
+          index,
+        })}
       />
     </SafeAreaView>
   );
